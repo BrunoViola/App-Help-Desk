@@ -1,10 +1,6 @@
 <?php
-  session_start();
-  if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado']!='SIM'){
-    header('Location: index.php?login=nao_autenticado');
-  }
+  require_once "controle_paginas_restritas.php"
 ?>
-
 <html>
   <head>
     <meta charset="utf-8" />
