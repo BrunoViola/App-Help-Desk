@@ -39,6 +39,8 @@
                 <div class="form-group">
                   <input name="senha" type="password" class="form-control" placeholder="Senha">
                 </div>
+
+                <!--Verificação de credenciais incorretas-->
                 <?php
                   if(isset($_GET['login']) && $_GET['login']=='erro'){
                   
@@ -47,6 +49,17 @@
                 <?php
                   }
                 ?>
+
+                <!--Verificação de acesso restrito (Usuário não autenticado)-->
+                <?php
+                  if(isset($_GET['login']) && $_GET['login']=='nao_autenticado'){
+                  
+                ?>
+                  <div class='text-danger'>Acesso negado!<br/>Faça Login antes de acessar páginas restritas</div>
+                <?php
+                  }
+                ?>
+                
                 <button class="btn btn-lg btn-info btn-block" type="submit">Entrar</button>
               </form>
             </div>
