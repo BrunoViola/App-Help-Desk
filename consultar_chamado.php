@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
+      body{
+        padding-bottom: 60px;
+      }
       .card-consultar-chamado {
         padding: 30px 0 0 0;
         width: 100%;
@@ -31,6 +34,14 @@
         </li>
       </ul>
     </nav>
+    
+    <?php
+      $arquivo = "base_chamados.json";
+      if(file_exists($arquivo)){
+         $json = file_get_contents($arquivo); //pega o conteúdo do json
+         $conteudo_json = json_decode($json,true); //transforma a string json em um objeto php
+      }
+    ?>
 
     <div class="container">    
       <div class="row">
@@ -42,24 +53,22 @@
             </div>
             
             <div class="card-body">
-              
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
-
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
+              <?php
+                if(empty($conteudo_json)){
+                  echo "<p>Não existe chamados em aberto!</p>";
+                }else{
+                  foreach($conteudo_json as $chamado){?>
+                    <div class="card mb-3 bg-light">
+                      <div class="card-body">
+                        <h5 class="card-title"><?=$chamado['titulo']?></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><?=$chamado['categoria']?></h6>
+                        <p class="card-text"><?=$chamado['descricao']?></p>
+                      </div>
+                    </div>
+                <?php
+                  }
+                }
+                ?>
 
               <div class="row mt-5">
                 <div class="col-6">
