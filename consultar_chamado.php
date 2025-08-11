@@ -1,5 +1,5 @@
 <?php
-  require_once "controle_paginas_restritas.php"
+  require_once "controle_paginas_restritas.php";
 ?>
 
 <html>
@@ -57,7 +57,13 @@
                 if(empty($conteudo_json)){
                   echo "<p>Não existe chamados em aberto!</p>";
                 }else{
-                  foreach($conteudo_json as $chamado){?>
+                  foreach($conteudo_json as $chamado){
+                    if($_SESSION['perfil']==2){
+                      if($_SESSION['id'] != $chamado['id']){ //exibe apenas os chamados criados pelo 'Usuário'
+                        continue;
+                      }
+                    }
+                    ?>
                     <div class="card mb-3 bg-light">
                       <div class="card-body">
                         <h5 class="card-title"><?=$chamado['titulo']?></h5>
